@@ -1,6 +1,6 @@
 import math
 
-
+#assumes 2d matrix
 def print_matrix( matrix ):
     for i in matrix:
         print i
@@ -16,7 +16,15 @@ def ident( matrix ):
 
 #m1 * m2 -> m2
 def matrix_mult( m1, m2 ):
-    pass
+    result = new_matrix(len(m2[0]), len(m2))
+    for i in range(len(m1)):
+        for j in range(len(m2[0])): 
+            for k in range(len(m2)): 
+                result[i][j] += m1[i][k] * m2[k][j]
+    for i in range(len(m2)):
+        for j in range(len(m2[0])):
+            m2[i][j] = result[i][j]
+    return m2
 
 
 
