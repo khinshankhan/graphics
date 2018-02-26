@@ -58,9 +58,43 @@ matrix_mult( m1, m2 )
 print_matrix(m2)
 
 matrixd = new_matrix()
-add_edge( matrixd, 0, 0, 0, 100, 100, 0 )
-add_edge( matrixd, 250, 500, 0, 250, 250, 0 )
+add_edge( matrixd, 0, 0, 0, 0, 100, 0 )
+add_edge( matrixd, 100, 0, 0, 100, 100, 0 )
+add_edge( matrixd, 0, 0, 0, 100, 0, 0 )
+add_edge( matrixd, 0, 100, 0, 100, 100, 0 )
 print "matrix drawing"
+print_matrix(matrixd)
+draw_lines( matrixd, screen, color )
+
+print "tranlating matrix 4 times, (print 1 eg on console)"
+matrixt = new_matrix()
+ident(matrixt)
+matrixt[0][3] = 399
+print_matrix(matrixt)
+matrix_mult( matrixt, matrixd )
+
+print "translated matrix drawing (square in every corner and center)\n (print 1 eg on console)"
+print_matrix(matrixd)
+draw_lines( matrixd, screen, color )
+
+ident(matrixt)
+matrixt[1][3] = 399
+matrix_mult( matrixt, matrixd )
+draw_lines( matrixd, screen, color )
+
+ident(matrixt)
+matrixt[0][3] = -399
+matrix_mult( matrixt, matrixd )
+draw_lines( matrixd, screen, color )
+
+ident(matrixt)
+matrixt[0][3] = 200
+matrixt[1][3] = -200
+matrix_mult( matrixt, matrixd )
+add_edge(matrixd, 200, 200, 0, 300, 300, 0)
+add_edge(matrixd, 200, 300, 0, 300, 200, 0)
+add_edge(matrixd, 250, 300, 0, 250, 200, 0)
+add_edge(matrixd, 200, 250, 0, 300, 250, 0)
 print_matrix(matrixd)
 draw_lines( matrixd, screen, color )
 display(screen)
