@@ -1,9 +1,18 @@
 from display import *
 from matrix import *
 
+# helper method for drawlines
+def column(matrix, i):
+    return [row[i] for row in matrix]
 
+# assume even number inputted
 def draw_lines( matrix, screen, color ):
-    pass
+    counter1 = -1
+    counter2 = 0
+    for i in range(1, len(matrix[0]), 2):
+        col1 = column(matrix, counter1+i)
+        col2 = column(matrix, counter2+i)
+        draw_line( col1[0], col1[1], col2[0], col2[1], screen, color )
 
 def add_edge( matrix, x0, y0, z0, x1, y1, z1 ):
     add_point(matrix, x0, y0, z0)

@@ -5,7 +5,7 @@ from matrix import *
 screen = new_screen()
 color = [ 0, 255, 0 ]
 matrix = new_matrix()
-'''
+
 print "start matrix"
 #mess up matrix
 for i in matrix:
@@ -13,24 +13,20 @@ for i in matrix:
         i[j] = 50
 
 print_matrix(matrix)
-print "end matrix"
 
-print "start matrix"
+print "start matrix made into ident"
 ident(matrix)
 print_matrix(matrix)
-print "end matrix"
 
-print "start matrix"
+print "add 3 points to the matrix"
 add_point(matrix, 9, 8, 7)
+add_point(matrix, 7, 7, 7)
 add_point(matrix, 0, 0, 0)
 print_matrix(matrix)
-print "end matrix"
 
-print "start matrix"
+print "add an edge to matrix"
 add_edge(matrix, 9, 8, 7, 10, 9, 8)
 print_matrix(matrix)
-print "end matrix"
-'''
 
 #https://i.stack.imgur.com/oFncU.png
 
@@ -60,5 +56,11 @@ print_matrix(m2)
 print "m1xm2"
 matrix_mult( m1, m2 )
 print_matrix(m2)
-#draw_lines( matrix, screen, color )
-#display(screen)
+
+matrixd = new_matrix()
+add_edge( matrixd, 0, 0, 0, 100, 100, 0 )
+add_edge( matrixd, 250, 500, 0, 250, 250, 0 )
+print "matrix drawing"
+print_matrix(matrixd)
+draw_lines( matrixd, screen, color )
+display(screen)
