@@ -5,6 +5,10 @@ def make_translate( x, y, z ):
     ident(matrix)
     matrix.append( [x, y, z, 1] )
     return matrix
+def make_scale( x, y, z ):
+    matrix = new_matrix(4,3)
+    ident(matrix, x, y, z)
+    return matrix
 
 #helper methods for rotation, makes angles easier
 def cos( theta ):
