@@ -5,35 +5,63 @@ def make_translate( x, y, z ):
     ident(matrix)
     matrix.append( [x, y, z, 1] )
     return matrix
-    
 
-def make_scale( x, y, z ):
-    pass
+#helper methods for rotation, makes angles easier
+def cos( theta ):
+    return round(math.cos(math.radians(theta)), 2)
+def sin( theta ):
+    return round(math.sin(math.radians(theta)), 2)
 
 def make_rotX( theta ):    
-    pass
+    matrix = new_matrix()
+    ident(matrix)
+    c = cos(theta)
+    s = sin(theta)
+    matrix[0][0] = matrix[1][1] = c
+    matrix[0][1] = s
+    matrix[1][0] = -s
+    return matrix
 
 def make_rotY( theta ):
-    pass
+    matrix = new_matrix()
+    ident(matrix)
+    c = cos(theta)
+    s = sin(theta)
+    matrix[1][1] = matrix[2][2] = c
+    matrix[1][2] = s
+    matrix[2][1] = -s
+    return matrix
 
 def make_rotZ( theta ):
-    pass
+    matrix = new_matrix()
+    ident(matrix)
+    c = cos(theta)
+    s = sin(theta)
+    matrix[0][0] = matrix[2][2] = c
+    matrix[0][2] = s
+    matrix[2][0] = -s
+    return matrix
 
 def print_matrix( matrix ):
     s = ''
     for r in range( len( matrix[0] ) ):
         for c in range( len(matrix) ):
-            s+= str(matrix[c][r]) + ' '
+            s+= str(matrix[c][r]) + '\t'
         s+= '\n'
     print s
 
-def ident( matrix ):
+def ident( matrix, x = 1, y = 1, z = 1 ):
+    nums = [x, y, z]
     for r in range( len( matrix[0] ) ):
         for c in range( len(matrix) ):
+            i  = 1#customizable diagonal
+            if(r < 3):
+                i = nums[r]
             if r == c:
-                matrix[c][r] = 1
+                matrix[c][r] = i
             else:
                 matrix[c][r] = 0
+    return matrix
 
 def scalar_mult( matrix, s ):
     for r in range( len( matrix[0] ) ):
