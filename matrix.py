@@ -6,7 +6,7 @@ def make_translate( x, y, z ):
     matrix.append( [x, y, z, 1] )
     return matrix
 def make_scale( x, y, z ):
-    matrix = new_matrix(4,4)
+    matrix = new_matrix()
     ident(matrix, x, y, z)
     return matrix
 
