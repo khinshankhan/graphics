@@ -8,11 +8,11 @@ color = [ 0, 255, 0 ]
 edges = []
 transform = new_matrix()
 
-'''
+
 print "Translation Matrix Creation"
 matrix = make_translate(5, 6, 7)
 print_matrix(matrix)
-'''
+
 print "Rot X Matrix Creation"
 matrix = make_rotX(30)
 print_matrix(matrix)
