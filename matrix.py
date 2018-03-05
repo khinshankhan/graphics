@@ -16,7 +16,7 @@ def cos( theta ):
 def sin( theta ):
     return round(math.sin(math.radians(theta)), 2)
 
-def make_rotX( theta ):    
+def make_rotZ( theta ):    
     matrix = new_matrix()
     ident(matrix)
     c = cos(theta)
@@ -26,7 +26,7 @@ def make_rotX( theta ):
     matrix[1][0] = -s
     return matrix
 
-def make_rotY( theta ):
+def make_rotX( theta ):
     matrix = new_matrix()
     ident(matrix)
     c = cos(theta)
@@ -36,14 +36,14 @@ def make_rotY( theta ):
     matrix[2][1] = -s
     return matrix
 
-def make_rotZ( theta ):
+def make_rotY( theta ):
     matrix = new_matrix()
     ident(matrix)
     c = cos(theta)
     s = sin(theta)
-    matrix[0][0] = matrix[2][2] = c
-    matrix[0][2] = s
-    matrix[2][0] = -s
+    matrix[0][0] = matrix[2][3] = c
+    matrix[2][0] = s
+    matrix[0][3] = -s
     return matrix
 
 def print_matrix( matrix ):
