@@ -1,10 +1,20 @@
 import math
 
 def make_bezier():
-    pass
+    matrix = new_matrix(4,0)
+    matrix.append( [-1, 3, -3, 1] )
+    matrix.append( [3, -6, 3, 0] )
+    matrix.append( [-3, 3, 0, 0] )
+    matrix.append( [1, 0, 0, 0] )
+    return matrix
 
 def make_hermite():
-    pass
+    matrix = new_matrix(4,0)
+    matrix.append( [2, -2, 1, 1] )
+    matrix.append( [-3, 3, -2, -1] )
+    matrix.append( [0, 0, 1, 0] )
+    matrix.append( [1, 0, 0, 0] )
+    return matrix
 
 def generate_curve_coefs( p1, p2, p3, p4, t ):
     pass
