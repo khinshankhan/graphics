@@ -92,12 +92,12 @@ def parse_file( fname, edges, transform, screen, color ):
         elif line == 'hermite':
             xcoef = generate_curve_coefs(float(args[0]), float(args[2]), float(args[4]), float(args[6]), 0)
             ycoef = generate_curve_coefs(float(args[1]), float(args[3]), float(args[5]), float(args[7]), 0)
-            generate_points(t)
+            generate_points(xcoef)
             
         elif line == 'bezier':
-            xcoef = generate_curve_coefs(float(args[0]), float(args[1]), float(args[2]), float(args[3]), 1)
-            ycoef = generate_curve_coefs(float(args[0]), float(args[1]), float(args[2]), float(args[3]), 1)
-            generate_points(t)
+            xcoef = generate_curve_coefs(float(args[0]), float(args[2]), float(args[4]), float(args[6]), 1)
+            ycoef = generate_curve_coefs(float(args[1]), float(args[3]), float(args[5]), float(args[7]), 1)
+            generate_points(xcoef)
 
 
         elif line == 'apply':

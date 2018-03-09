@@ -17,7 +17,7 @@ def make_hermite():
     return matrix
 
 def generate_curve_coefs( p1, p2, p3, p4, t ):
-    curve
+    curve = 0
     #0 is hermite
     #1 is bezier
     if t == 0:
@@ -78,12 +78,17 @@ def make_rotZ( theta ):
     return t
 
 def print_matrix( matrix ):
-    s = ''
-    for r in range( len( matrix[0] ) ):
-        for c in range( len(matrix) ):
-            s+= str(matrix[c][r]) + ' '
-        s+= '\n'
-    print s
+    try:
+        s = ''
+        for r in range( len( matrix[0] ) ):
+            for c in range( len(matrix) ):
+                s+= str(matrix[c][r]) + ' '
+            s+= '\n'
+        print s
+    except TypeError:
+        s = ''
+        for i in matrix:
+            s+= i + '\n'
 
 def ident( matrix ):
     for r in range( len( matrix[0] ) ):

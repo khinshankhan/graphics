@@ -18,9 +18,10 @@ transform = new_matrix()
 # print_matrix( make_rotY(math.pi/4) )
 # print
 # print_matrix( make_rotZ(math.pi/4) )
-
+'''
 matrix = make_bezier()
 print_matrix(matrix)
 matrix = make_hermite()
 print_matrix(matrix)
-#parse_file( 'script', edges, transform, screen, color )
+'''
+parse_file( 'script', edges, transform, screen, color )
