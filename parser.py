@@ -38,7 +38,7 @@ The file follows the following format:
 
 See the file script for an example of the file format
 """
-ARG_COMMANDS = [ 'line', 'scale', 'move', 'rotate', 'save' ]
+ARG_COMMANDS = [ 'line', 'scale', 'move', 'rotate', 'save', 'circle', 'hermite', 'bezier']
 
 def parse_file( fname, edges, transform, screen, color ):
 
@@ -87,13 +87,17 @@ def parse_file( fname, edges, transform, screen, color ):
             ident(transform)
             
         elif line == 'circle':
-            ident(transform)
+            pass
             
         elif line == 'hermite':
-            ident(transform)
+            xcoef = generate_curve_coefs(float(args[0]), float(args[2]), float(args[4]), float(args[6]), 0)
+            ycoef = generate_curve_coefs(float(args[1]), float(args[3]), float(args[5]), float(args[7]), 0)
+            generate_points(t)
             
         elif line == 'bezier':
-            ident(transform)
+            xcoef = generate_curve_coefs(float(args[0]), float(args[1]), float(args[2]), float(args[3]), 1)
+            ycoef = generate_curve_coefs(float(args[0]), float(args[1]), float(args[2]), float(args[3]), 1)
+            generate_points(t)
 
 
         elif line == 'apply':

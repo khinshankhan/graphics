@@ -17,8 +17,22 @@ def make_hermite():
     return matrix
 
 def generate_curve_coefs( p1, p2, p3, p4, t ):
-    pass
+    curve
+    #0 is hermite
+    #1 is bezier
+    if t == 0:
+        curve = make_hermite()
+    else:
+        curve = make_bezier()
+        
+    C = new_matrix(4,0)
+    C.append( [p1, p2, p3, p4] )
+    matrix = matrix_mult(curve, C)
+    
+    return matrix
 
+def generate_points( coefs):
+    print_matrix( coefs )
 
 def make_translate( x, y, z ):
     t = new_matrix()
