@@ -87,18 +87,28 @@ def parse_file( fname, edges, transform, screen, color ):
             ident(transform)
             
         elif line == 'circle':
-            pass
-            
+            #add_circle( edges, args[0], args[1], args[2], args[3], 0.01)
+            print 'Circle'
+            for i in range(len(args)):
+                args[i] = int(args[i])
+            for i in args:
+                print i
+            #(x0, y0, x1, y1, rx0, ry0, rx1, ry1)
         elif line == 'hermite':
-            xcoef = generate_curve_coefs(float(args[0]), float(args[2]), float(args[4]), float(args[6]), 0)
-            ycoef = generate_curve_coefs(float(args[1]), float(args[3]), float(args[5]), float(args[7]), 0)
-            generate_points(xcoef)
+            print 'Hermite'
+            for i in range(len(args)):
+                args[i] = float(args[i])
+            for i in args:
+                print i
+            #add_curve( edges, args[0], args[1], args[2], args[3], args[4], args[5], args[6], args[7], 0.01, 0 );
             
         elif line == 'bezier':
-            xcoef = generate_curve_coefs(float(args[0]), float(args[2]), float(args[4]), float(args[6]), 1)
-            ycoef = generate_curve_coefs(float(args[1]), float(args[3]), float(args[5]), float(args[7]), 1)
-            generate_points(xcoef)
-
+            print 'Bezier'
+            for i in range(len(args)):
+                args[i] = float(args[i])
+            for i in args:
+                print i
+            #add_curve( edges, args[0], args[1], args[2], args[3], args[4], args[5], args[6], args[7], 0.01, 1 );
 
         elif line == 'apply':
             matrix_mult( transform, edges )
