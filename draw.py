@@ -3,11 +3,22 @@ from matrix import *
 
 
 def add_circle( points, cx, cy, cz, r, step ):
-    pass
+    print "x: "+ str(cx) +" y: " + str(cy) +" cz: " + str(cz) +" r: " + str(r)
+    nums = custom_range( 0, 1, step)
+    for i in nums:
+        x = (r * math.cos(2 * math.pi * i) ) + cx
+        y = (r * math.sin(2 * math.pi * i) ) + cy
+        #print "x: " + str(x) + " y: " + str(y)
+        add_point( points, x, y)
 
 def add_curve( points, x0, y0, x1, y1, x2, y2, x3, y3, step, curve_type ):
-    pass
+    coefsx = generate_curve_coefs( x0, x1, x2, x3, curve_type )
+    coefsy = generate_curve_coefs( y0, y1, y2, y3, curve_type )
+    nums = custom_range( 0, 1, step)
+    for i in nums:
+        print i
 
+#returns iterable over [start, limit] as start increments by step
 def custom_range( start, limit, step ):
     #rounding percision
     '''
@@ -16,9 +27,15 @@ def custom_range( start, limit, step ):
         if(round(limit, lim) >= 1):
             break
     '''
-    while(start < limit):
-        start = start + step
-        yield start - step
+    #weird stuff is happening with 0.1
+    if(step == 0.1):
+        while(start <= limit):
+            yield start
+            start += step
+    else:
+        while(start <= limit + step):
+            yield start
+            start += step
 
 def draw_lines( matrix, screen, color ):
     if len(matrix) < 2:

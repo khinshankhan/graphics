@@ -90,26 +90,30 @@ def parse_file( fname, edges, transform, screen, color ):
             #add_circle( edges, args[0], args[1], args[2], args[3], 0.01)
             print 'Circle'
             for i in range(len(args)):
-                args[i] = int(args[i])
+                args[i] = float(args[i])
             for i in args:
                 print i
-            #(x0, y0, x1, y1, rx0, ry0, rx1, ry1)
+            add_circle(edges, args[0], args[1], args[2], args[3], 0.001) 
         elif line == 'hermite':
+            '''
             print 'Hermite'
             for i in range(len(args)):
                 args[i] = float(args[i])
             for i in args:
                 print i
-            #add_curve( edges, args[0], args[1], args[2], args[3], args[4], args[5], args[6], args[7], 0.01, 0 );
-            
+            #add_curve( edges, args[0], args[1], args[2], args[3], args[4], args[5], args[6], args[7], 0.001, 0 );
+            '''
+            pass
         elif line == 'bezier':
+            '''
             print 'Bezier'
             for i in range(len(args)):
                 args[i] = float(args[i])
             for i in args:
                 print i
-            #add_curve( edges, args[0], args[1], args[2], args[3], args[4], args[5], args[6], args[7], 0.01, 1 );
-
+            #add_curve( edges, args[0], args[1], args[2], args[3], args[4], args[5], args[6], args[7], 0.001, 1 );
+            '''
+            pass
         elif line == 'apply':
             matrix_mult( transform, edges )
 
