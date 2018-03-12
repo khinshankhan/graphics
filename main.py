@@ -24,4 +24,9 @@ print_matrix(matrix)
 matrix = make_hermite()
 print_matrix(matrix)
 '''
-parse_file( 'script', edges, transform, screen, color )
+#parse_file( 'script', edges, transform, screen, color )
+
+print "hello"
+nums = custom_range( 0, 1, 0.1)
+for i in nums:
+    print i
