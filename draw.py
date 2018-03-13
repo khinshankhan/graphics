@@ -3,18 +3,24 @@ from matrix import *
 
 
 def add_circle( points, cx, cy, cz, r, step ):
-    print "x: "+ str(cx) +" y: " + str(cy) +" cz: " + str(cz) +" r: " + str(r)
+    #print "x: "+ str(cx) +" y: " + str(cy) +" cz: " + str(cz) +" r: " + str(r)
     nums = custom_range( 0, 1, step)
+    x0 = r + cx
+    y0 = cy
     for i in nums:
         x = (r * math.cos(2 * math.pi * i) ) + cx
         y = (r * math.sin(2 * math.pi * i) ) + cy
         #print "x: " + str(x) + " y: " + str(y)
-        add_point( points, x, y)
+        add_edge( points, x0, y0, cz, x, y, cz)
+        x0 = x
+        y0 = y
 
 def add_curve( points, x0, y0, x1, y1, x2, y2, x3, y3, step, curve_type ):
     coefsx = generate_curve_coefs( x0, x1, x2, x3, curve_type )
     coefsy = generate_curve_coefs( y0, y1, y2, y3, curve_type )
     nums = custom_range( 0, 1, step)
+    print "hi"
+    print coefsx[3][0]
     for i in nums:
         print i
 
