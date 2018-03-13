@@ -24,7 +24,7 @@ def add_curve( points, x0, y0, x1, y1, x2, y2, x3, y3, step, curve_type ):
     for i in nums:
 	segx = (i*i*i*coefsx[0][0]) + (i*i*coefsx[1][0]) + (i*coefsx[2][0]) + coefsx[3][0]
 	segy = (i*i*i*coefsy[0][0]) + (i*i*coefsy[1][0]) + (i*coefsy[2][0]) + coefsy[3][0]
-	add_esge( edges, segx0, segy0,  0, segx, segy, 0)
+	add_edge( points, segx0, segy0,  0, segx, segy, 0)
 	segx0 = segx
 	segy0 = segy
 	
