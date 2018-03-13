@@ -19,15 +19,16 @@ def add_curve( points, x0, y0, x1, y1, x2, y2, x3, y3, step, curve_type ):
     coefsx = generate_curve_coefs( x0, x1, x2, x3, curve_type )
     coefsy = generate_curve_coefs( y0, y1, y2, y3, curve_type )
     nums = custom_range( 0, 1, step)
-    segx0 = coefsx[3][0]
-    segy0 = coefsy[3][0]
+    segx0 = coefsx[0][3]
+    segy0 = coefsy[0][3]
     for i in nums:
-	segx = (i*i*i*coefsx[0][0]) + (i*i*coefsx[1][0]) + (i*coefsx[2][0]) + coefsx[3][0]
-	segy = (i*i*i*coefsy[0][0]) + (i*i*coefsy[1][0]) + (i*coefsy[2][0]) + coefsy[3][0]
+	segx = (i*i*i*coefsx[0][0]) + (i*i*coefsx[0][1]) + (i*coefsx[0][2]) + coefsx[0][3]
+	segy = (i*i*i*coefsy[0][0]) + (i*i*coefsy[0][1]) + (i*coefsy[0][2]) + coefsy[0][3]
 	add_edge( points, segx0, segy0,  0, segx, segy, 0)
 	segx0 = segx
 	segy0 = segy
-	
+
+
 #returns iterable over [start, limit] as start increments by step
 def custom_range( start, limit, step ):
     #rounding percision

@@ -1,33 +1,44 @@
 import math
 
 def make_bezier():
-    matrix = new_matrix(4,0)
-    matrix.append( [-1, 3, -3, 1] )
-    matrix.append( [3, -6, 3, 0] )
-    matrix.append( [-3, 3, 0, 0] )
-    matrix.append( [1, 0, 0, 0] )
-    return matrix
+    res = new_matrix()
+    res[0][0] = -1
+    res[0][1] = 3
+    res[0][2] = -3
+    res[0][3] = 1
+    res[1][0] = 3
+    res[1][1] = -6
+    res[1][2] = 3
+    res[2][0] = -3
+    res[2][1] = 3
+    res[3][0] = 1
+    return res
 
 def make_hermite():
-    matrix = new_matrix(4,0)
-    matrix.append( [2, -3, 0, 1] )
-    matrix.append( [-2, 3, 0, 0] )
-    matrix.append( [1, -2, 1, 0] )
-    matrix.append( [1, -1, 0, 0] )
-    return matrix
+    res = new_matrix()
+    res[0][0] = 2
+    res[1][0] = -2
+    res[2][0] = 1
+    res[3][0] = 1
+    res[0][1] = -3
+    res[1][1] = 3
+    res[2][1] = -2
+    res[3][1] = -1
+    res[2][2] = 1
+    res[0][3] = 1
+    return res
+
 
 def generate_curve_coefs( p1, p2, p3, p4, t ):
-    C = new_matrix(4,0)
-    C.append( [p1, p2, p3, p4] )
-    #0 is hermite
-    #1 is bezier
-    curve = 0
-    if t == 0:
-	curve = make_hermite()
-    else:
-        curve = make_bezier()
-    matrix_mult(curve, C)
-    return curve
+    res = new_matrix()
+    if t == "hermite": 
+        res = make_hermite()
+    if t == "bezier": 
+        res = make_bezier()
+    coefs = [[p1, p2, p3, p4]]
+    matrix_mult(res, coefs)
+    return coefs
+
 
 def make_translate( x, y, z ):
     t = new_matrix()
@@ -73,17 +84,12 @@ def make_rotZ( theta ):
     return t
 
 def print_matrix( matrix ):
-    try:
-        s = ''
-        for r in range( len( matrix[0] ) ):
-            for c in range( len(matrix) ):
-                s+= str(matrix[c][r]) + ' '
-            s+= '\n'
-        print s
-    except TypeError:
-        s = ''
-        for i in matrix:
-            s+= i + '\n'
+    s = ''
+    for r in range( len( matrix[0] ) ):
+        for c in range( len(matrix) ):
+            s+= str(matrix[c][r]) + ' '
+        s+= '\n'
+    print s
 
 def ident( matrix ):
     for r in range( len( matrix[0] ) ):
