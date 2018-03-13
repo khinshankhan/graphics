@@ -14,7 +14,6 @@ The file follows the following format:
 	    takes 8 arguments (x0, y0, x1, y1, rx0, ry0, rx1, ry1)
 	 bezier: add a bezier curve to the edge matrix -
 	    takes 8 arguments (x0, y0, x1, y1, x2, y2, x3, y3)
-
          line: add a line to the edge matrix - 
 	    takes 6 arguemnts (x0, y0, z0, x1, y1, z1)
 	 ident: set the transform matrix to the identity matrix - 
@@ -35,10 +34,9 @@ The file follows the following format:
 	    save the screen to a file -
 	    takes 1 argument (file name)
 	 quit: end parsing
-
 See the file script for an example of the file format
 """
-ARG_COMMANDS = [ 'line', 'scale', 'move', 'rotate', 'save', 'circle', 'hermite', 'bezier']
+ARG_COMMANDS = [ 'line', 'scale', 'move', 'rotate', 'save' ]
 
 def parse_file( fname, edges, transform, screen, color ):
 
@@ -61,6 +59,15 @@ def parse_file( fname, edges, transform, screen, color ):
                       float(args[0]), float(args[1]), float(args[2]),
                       float(args[3]), float(args[4]), float(args[5]) )
 
+        elif line == 'circle':
+            add_circle(edges, float(args[0]),float(args[1]),float(args[2]),float(args[3]) , 0.001)
+
+        elif line == 'hermite':
+            add_curve(edges, float(args[0]),float(args[1]),float(args[2]),float(args[3]) ,float(args[4]),float(args[5]),float(args[6]),float(args[7]),10,'hermite')
+
+        elif line == 'bezier':
+            add_curve(edges, float(args[0]),float(args[1]),float(args[2]),float(args[3]) ,float(args[4]),float(args[5]),float(args[6]),float(args[7]),10,'bezier')
+            
         elif line == 'scale':
             #print 'SCALE\t' + str(args)
             t = make_scale(float(args[0]), float(args[1]), float(args[2]))
@@ -82,19 +89,10 @@ def parse_file( fname, edges, transform, screen, color ):
             else:
                 t = make_rotZ(theta)
             matrix_mult(t, transform)
+
                 
         elif line == 'ident':
             ident(transform)
-            
-        elif line == 'circle':
-            add_circle(edges, float(args[0]),float(args[1]),float(args[2]),float(args[3]) , 0.1)
-
-        elif line == 'hermite':
-            add_curve(edges, float(args[0]),float(args[1]),float(args[2]),float(args[3]) ,float(args[4]),float(args[5]),float(args[6]),float(args[7]),10,'hermite')
-
-        elif line == 'bezier':
-            add_curve(edges, float(args[0]),float(args[1]),float(args[2]),float(args[3]) ,float(args[4]),float(args[5]),float(args[6]),float(args[7]),10,'bezier')
-
 
         elif line == 'apply':
             matrix_mult( transform, edges )
@@ -108,4 +106,4 @@ def parse_file( fname, edges, transform, screen, color ):
             else:
                 save_extension(screen, args[0])
             
-        c+= 1
+c+= 1
