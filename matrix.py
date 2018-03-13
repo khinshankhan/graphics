@@ -21,10 +21,13 @@ def generate_curve_coefs( p1, p2, p3, p4, t ):
     C.append( [p1, p2, p3, p4] )
     #0 is hermite
     #1 is bezier
+    curve = 0
     if t == 0:
-        return matrix_mult(make_hermite(), C)
+	curve = make_hermite()
     else:
-        return matrix_mult(make_bezier(), C)
+        curve = make_bezier()
+    matrix_mult(curve, C)
+    return curve
 
 def make_translate( x, y, z ):
     t = new_matrix()
