@@ -2,9 +2,29 @@ from display import *
 from matrix import *
 from math import *
 
-def add_box( points, x, y, z, width, height, depth ):
-    pass
+def add_box( points, x, y, z, w, h, d ):
+    #defining points -- vertices
+    p0 = [x, y, z]
+    p1 = [x, y, z - d]
+    p2 = [x, y - h, z]
+    p3 = [x, y - h, z - d]
+    p4 = [x + w, y, z]
+    p5 = [x + w, y, z - d]
+    p6 = [x + w, y - h, z]
+    p7 = [x + w, y - h, z - d]
+    
+    # add edges based off vertices
+    add_edge(points, p0[0], p0[1], p0[2], p1[0], p1[1], p1[2])
+    add_edge(points, p0[0], p0[1], p0[2], p2[0], p2[1], p2[2])
+    add_edge(points, p0[0], p0[1], p0[2], p4[0], p4[1], p4[2])
+    
+    add_edge(points, p6[0], p6[1], p6[2], p4[0], p4[1], p4[2])
+    add_edge(points, p6[0], p6[1], p6[2], p2[0], p2[1], p2[2])
+    add_edge(points, p6[0], p6[1], p6[2], p7[0], p7[1], p7[2])
 
+    add_edge(points, p3[0], p3[1], p3[2], p2[0], p2[1], p2[2])
+    
+    
 def add_sphere( points, cx, cy, cz, r, step ):
     pass
 def generate_sphere( points, cx, cy, cz, r, step ):
