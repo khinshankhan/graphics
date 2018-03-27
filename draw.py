@@ -9,33 +9,35 @@ def add_polygon( points, x0, y0, z0, x1, y1, z1, x2, y2, z2 ):
 
 def draw_polygons( points, screen, color ):
     if len(points) < 3:
-        print 'Need at least 2 points to draw polygons'
+        print 'Need at least 3 points to draw polygons'
         return
     
     c = 0
     while c < len(points) - 1:
+
         temp = []
         temp.append(points[c])
         temp.append(points[c + 1])
-        draw_lines( points, screen, color )
-        print_matrix(temp)
+        draw_lines( temp, screen, color )
+        
         temp = []
         temp.append(points[c + 1])
         temp.append(points[c + 2])
-        draw_lines( points, screen, color )
-        print_matrix(temp)
+        draw_lines( temp, screen, color )
+
         temp = []
         temp.append(points[c])
         temp.append(points[c + 2])
-        draw_lines( points, screen, color )
-        print_matrix(temp)
+        draw_lines( temp, screen, color )
+
         c += 3
 
 def add_box( points, x, y, z, width, height, depth ):
     x1 = x + width
     y1 = y - height
     z1 = z - depth
-
+    #point method
+    '''
     #front
     add_edge(points, x, y, z, x1, y, z)
     add_edge(points, x, y1, z, x1, y1, z)
@@ -53,7 +55,22 @@ def add_box( points, x, y, z, width, height, depth ):
     add_edge(points, x1, y, z, x1, y, z1)
     add_edge(points, x, y1, z, x, y1, z1)
     add_edge(points, x1, y1, z, x1, y1, z1)
+    '''
+    #polygon method
+    #front
+    add_polygon( points, x, y, z, x1, y, z, x1, y1, z )
+    add_polygon( points, x, y, z, x, y1, z, x1, y1, z )
+    
+    #back
+    add_polygon( points, x, y, z1, x1, y, z1, x1, y1, z1 )
+    add_polygon( points, x, y, z1, x, y1, z1, x1, y1, z1 )
 
+    #sides
+    add_polygon( points, x, y, z, x, y, z1, x, y1, z1 )
+    add_polygon( points, x, y, z, x, y1, z, x, y1, z1 )
+    add_polygon( points, x1, y, z, x1, y, z1, x1, y1, z1 )
+    add_polygon( points, x1, y, z, x1, y1, z, x1, y1, z1 )
+    
 def add_sphere( edges, cx, cy, cz, r, step ):
     points = generate_sphere(cx, cy, cz, r, step)
 

@@ -1,0 +1,12 @@
+@box
+box
+250 250 0 50 50 200
+ident
+rotate
+x 20
+rotate
+y 20
+move
+150 100 0
+apply
+display
