@@ -7,6 +7,7 @@ import math
 screen = new_screen()
 color = [ 0, 255, 0 ]
 edges = []
+poly = []
 transform = new_matrix()
 
 # print_matrix( make_bezier() )
@@ -15,4 +16,4 @@ transform = new_matrix()
 # print
 
 #parse_file( 'script', edges, transform, screen, color )
-parse_file( 'test', edges, transform, screen, color )
+parse_file( 'test', poly, edges, transform, screen, color )

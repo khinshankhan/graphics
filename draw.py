@@ -2,18 +2,37 @@ from display import *
 from matrix import *
 from math import *
 
+#some vector methods to help with future back culling
+
+#adds magnitudes of two vectors, this * cos theta could be dot product
+def add_mag(A, B):
+    return (A[0] * B[0]) + (A[1] * B[1]) + (A[2] * B[2])
+#cross product of two vectors
+def cross_product(A, B):
+    product = []
+    x = (A[1] * B[2]) - (A[2] * B[1])
+    y = (A[2] * B[0]) - (A[0] * B[2])
+    z = (A[0] * B[1]) - (A[1] * B[0])
+    product.append(x)
+    product.append(y)
+    product.append(z)
+    return product
+
 def add_polygon( points, x0, y0, z0, x1, y1, z1, x2, y2, z2 ):
     add_edge(points, x0, y0, z0, x1, y1, z1)
     add_point(points, x2, y2, z2)
     
 
 def draw_polygons( points, screen, color ):
+    view_vector = [0, 0, 1]
+    
+    
     if len(points) < 3:
         print 'Need at least 3 points to draw polygons'
         return
     
     c = 0
-    while c < len(points) - 1:
+    while c < len(points) - 2:
 
         temp = []
         temp.append(points[c])
@@ -70,6 +89,11 @@ def add_box( points, x, y, z, width, height, depth ):
     add_polygon( points, x, y, z, x, y1, z, x, y1, z1 )
     add_polygon( points, x1, y, z, x1, y, z1, x1, y1, z1 )
     add_polygon( points, x1, y, z, x1, y1, z, x1, y1, z1 )
+
+    add_polygon( points, x, y, z, x, y, z1, x1, y, z1 )
+    add_polygon( points, x, y, z, x1, y, z, x1, y, z1 )
+    add_polygon( points, x, y1, z, x, y1, z1, x1, y1, z1 )
+    add_polygon( points, x, y1, z, x1, y1, z, x1, y1, z1 )
     
 def add_sphere( edges, cx, cy, cz, r, step ):
     points = generate_sphere(cx, cy, cz, r, step)

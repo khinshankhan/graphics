@@ -10,3 +10,27 @@ move
 150 100 0
 apply
 display
+ident
+clear
+
+@sphere
+sphere
+250 250 0 100
+ident
+rotate
+z 20
+apply
+display
+ident
+clear
+
+@torus
+torus
+250 250 0 35 100
+ident
+rotate
+x 30
+rotate
+y 20
+apply
+display
