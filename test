@@ -9,6 +9,7 @@ y 20
 move
 150 100 0
 apply
+save
 display
 ident
 clear

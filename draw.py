@@ -154,7 +154,7 @@ def add_torus( edges, cx, cy, cz, r0, r1, step ):
     for lat in range(lat_start, lat_stop):
         for longt in range(longt_start, longt_stop):
             index = lat * step + longt
-        next_ = index + 1
+            next_ = index + 1
             top = (lat+1) * step + longt
             bottom = (lat-1) *step + longt
 
