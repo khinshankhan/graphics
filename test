@@ -10,7 +10,7 @@ move
 150 100 0
 apply
 save
-display
+box.ppm
 ident
 clear
 
@@ -21,7 +21,8 @@ ident
 rotate
 z 20
 apply
-display
+save
+sphere.ppm
 ident
 clear
 
@@ -34,4 +35,5 @@ x 30
 rotate
 y 20
 apply
-display
+save
+torus.ppm

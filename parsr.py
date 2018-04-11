@@ -14,7 +14,6 @@ The file follows the following format:
 	    takes 5 arguemnts (cx, cy, cz, r1, r2)
          box: add a rectangular prism to the edge matrix - 
 	    takes 6 arguemnts (x, y, z, width, height, depth)	    
-
 	 circle: add a circle to the edge matrix - 
 	    takes 3 arguments (cx, cy, r)
 	 hermite: add a hermite curve to the edge matrix -
@@ -42,12 +41,14 @@ The file follows the following format:
 	    save the screen to a file -
 	    takes 1 argument (file name)
 	 quit: end parsing
-
 See the file script for an example of the file format
 """
 ARG_COMMANDS = [ 'line', 'scale', 'move', 'rotate', 'save', 'circle', 'bezier', 'hermite', 'box', 'sphere', 'torus' ]
 
 def parse_file( fname, poly, edges, transform, screen, color ):
+
+    old_poly = []
+    old_edges = []
 
     f = open(fname)
     lines = f.readlines()
@@ -130,6 +131,29 @@ def parse_file( fname, poly, edges, transform, screen, color ):
         elif line == 'clear':
             edges = []
             poly = []
+
+        elif line == 'empty':
+            if len(edges) != 0:
+                old_edges += edges
+                edges = []
+                '''
+                print "1"
+                print_matrix(old_edges)
+                print "2"
+                print_matrix(edges)
+                '''
+            if len(poly) != 0:
+                #"hi"
+                #print_matrix(poly)
+
+                old_poly += poly
+                poly = []
+                '''
+                print "3"
+                print_matrix(old_poly)
+                print "4"
+                print poly
+                '''
             
         elif line == 'ident':
             ident(transform)
@@ -142,10 +166,16 @@ def parse_file( fname, poly, edges, transform, screen, color ):
             clear_screen(screen)
             draw_lines(edges, screen, color)
             draw_polygons( poly, screen, color )
+            #smart empty
+            if len(old_edges) != 0:
+                draw_polygons( old_edges, screen, color )
+            if len(old_poly) != 0:
+                draw_polygons( old_poly, screen, color )
 
             if line == 'display':
                 display(screen)
             else:
-                save_extension(screen, args[0])
+                #save_extension(screen, args[0])
+                save_ppm(screen, args[0])
             
         c+= 1
