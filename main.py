@@ -1,6 +1,6 @@
 from display import *
 from draw import *
-from parsr import *
+from parser import *
 from matrix import *
 import math
 
@@ -15,5 +15,6 @@ transform = new_matrix()
 # print_matrix( make_hermite() )
 # print
 
-#parse_file( 'script', edges, transform, screen, color )
-parse_file( 'test', poly, edges, transform, screen, color )
+parse_file( 'script', edges, transform, screen, color )
+#needs special save method and stuff -- for windows
+#parse_file( 'jimmyneutronlogo', poly, edges, transform, screen, color )

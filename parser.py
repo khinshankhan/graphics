@@ -47,9 +47,6 @@ ARG_COMMANDS = [ 'line', 'scale', 'move', 'rotate', 'save', 'circle', 'bezier', 
 
 def parse_file( fname, poly, edges, transform, screen, color ):
 
-    old_poly = []
-    old_edges = []
-
     f = open(fname)
     lines = f.readlines()
 
@@ -133,27 +130,9 @@ def parse_file( fname, poly, edges, transform, screen, color ):
             poly = []
 
         elif line == 'empty':
-            if len(edges) != 0:
-                old_edges += edges
-                edges = []
-                '''
-                print "1"
-                print_matrix(old_edges)
-                print "2"
-                print_matrix(edges)
-                '''
-            if len(poly) != 0:
-                #"hi"
-                #print_matrix(poly)
-
-                old_poly += poly
-                poly = []
-                '''
-                print "3"
-                print_matrix(old_poly)
-                print "4"
-                print poly
-                '''
+            draw_lines(edges, screen, color)
+            draw_polygons( poly, screen, color )
+            save_ppm(screen, args[0])
             
         elif line == 'ident':
             ident(transform)
@@ -166,16 +145,11 @@ def parse_file( fname, poly, edges, transform, screen, color ):
             clear_screen(screen)
             draw_lines(edges, screen, color)
             draw_polygons( poly, screen, color )
-            #smart empty
-            if len(old_edges) != 0:
-                draw_polygons( old_edges, screen, color )
-            if len(old_poly) != 0:
-                draw_polygons( old_poly, screen, color )
 
             if line == 'display':
                 display(screen)
             else:
-                #save_extension(screen, args[0])
-                save_ppm(screen, args[0])
+                save_extension(screen, args[0])
+                #save_ppm(screen, args[0])
             
         c+= 1
