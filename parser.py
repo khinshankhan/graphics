@@ -2,6 +2,8 @@ from display import *
 from matrix import *
 from draw import *
 
+import copy
+
 """
 Goes through the file named filename and performs all of the actions listed in that file.
 The file follows the following format:
@@ -54,17 +56,24 @@ ARG_COMMANDS = [ 'line', 'scale', 'move', 'rotate', 'save', 'circle', 'bezier', 
 
 def parse_file( fname, edges, polygons, transform, screen, color ):
     stack = []
-    stack.append(ident(new_matrix()))
+    nueva = new_matrix()
+    ident(nueva)
+    stack.append(nueva)
 
-    def make_shape(shape, type_):
-        print_matrix(shape)
-        matrix_mult(stack[-1], shape)
+    def make_shape(type_):
         if type_ == 0:
+            matrix_mult(stack[-1], edges)
             draw_lines(edges, screen, color)
             edges = []
         else:
+            matrix_mult(stack[-1], polygons)
             draw_polygons(polygons, screen, color)
             polygons = []
+            
+    def apply(t):
+        print "======================================================="
+        matrix_mult(stack[-1], t)
+        stack[-1] = t
     
     f = open(fname)
     lines = f.readlines()
@@ -87,28 +96,28 @@ def parse_file( fname, edges, polygons, transform, screen, color ):
             add_sphere(polygons,
                        float(args[0]), float(args[1]), float(args[2]),
                        float(args[3]), step_3d)
-            make_shape(polygons, 1)
+            make_shape(1)
 
         elif line == 'torus':
             #print 'TORUS\t' + str(args)
             add_torus(polygons,
                       float(args[0]), float(args[1]), float(args[2]),
                       float(args[3]), float(args[4]), step_3d)
-            make_shape(polygons, 1)
+            make_shape(1)
 
         elif line == 'box':
             #print 'BOX\t' + str(args)
             add_box(polygons,
                     float(args[0]), float(args[1]), float(args[2]),
                     float(args[3]), float(args[4]), float(args[5]))
-            make_shape(polygons, 1)
+            make_shape(1)
 
         elif line == 'circle':
             #print 'CIRCLE\t' + str(args)
             add_circle(edges,
                        float(args[0]), float(args[1]), float(args[2]),
                        float(args[3]), step)
-            make_shape(edges, 0)
+            make_shape(0)
 
         elif line == 'hermite' or line == 'bezier':
             #print 'curve\t' + line + ": " + str(args)
@@ -118,7 +127,7 @@ def parse_file( fname, edges, polygons, transform, screen, color ):
                       float(args[4]), float(args[5]),
                       float(args[6]), float(args[7]),
                       step, line)
-            make_shape(edges, 0)
+            make_shape(0)
 
         elif line == 'line':
             #print 'LINE\t' + str(args)
@@ -150,6 +159,7 @@ def parse_file( fname, edges, polygons, transform, screen, color ):
             else:
                 t = make_rotZ(theta)
             #matrix_mult(t, transform)
+            #print_matrix(t)
             apply (t)
 
         elif line == 'clear':
