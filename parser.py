@@ -59,16 +59,21 @@ def parse_file( fname, edges, polygons, transform, screen, color ):
     nueva = new_matrix()
     ident(nueva)
     stack.append(nueva)
+     
+    ed = edges 
+    poly = polygons
 
     def make_shape(type_):
         if type_ == 0:
-            matrix_mult(stack[-1], edges)
-            draw_lines(edges, screen, color)
-            edges = []
+            matrix_mult(stack[-1], ed)
+            draw_lines(ed, screen, color)
+            for i in ed:
+               ed.pop()
         else:
-            matrix_mult(stack[-1], polygons)
-            draw_polygons(polygons, screen, color)
-            polygons = []
+            matrix_mult(stack[-1], poly)
+            draw_polygons(poly, screen, color)
+            for i in poly:
+                    poly.pop ()
             
     def apply(t):
         print "======================================================="
@@ -135,6 +140,7 @@ def parse_file( fname, edges, polygons, transform, screen, color ):
             add_edge( edges,
                       float(args[0]), float(args[1]), float(args[2]),
                       float(args[3]), float(args[4]), float(args[5]) )
+            make_shape (0)
 
         elif line == 'scale':
             #print 'SCALE\t' + str(args)
