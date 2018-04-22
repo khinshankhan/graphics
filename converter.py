@@ -25,10 +25,10 @@ def replace_file(fname, choice):
 
 def run():
     sys.stdout.flush()
-    print 'windows will convert files to work with a windows system'
+    print '\'windows\' will convert files to work with a windows system'
     print 'note your script should use display, and shouldnt try saving'
     print 'you can save using imagemagick\'s gui. use the open on the lefthand corner'
-    print 'revert will convert files back to normal linux use'
+    print '\'revert\' will convert files back to normal linux use'
     print
     print 'Now choose either: windows or revert'
     sys.stdout.flush()
