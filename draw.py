@@ -5,6 +5,9 @@ from gmath import *
 import random
 
 def scanline_convert(polygons, i, screen, zbuffer ):
+    p0 = [polygons[i][0], polygons [i][1], polygons[i][2]]
+    p1 = [polygons[i+1][0], polygons [i+1][1], polygons[i+1][2]]
+    p2 = [polygons[i+2][0], polygons [i+2][1], polygons[i+2][2]]
     pass
 
 def add_polygon( polygons, x0, y0, z0, x1, y1, z1, x2, y2, z2 ):
