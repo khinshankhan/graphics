@@ -8,6 +8,14 @@ def scanline_convert(polygons, i, screen, zbuffer ):
     p0 = [polygons[i][0], polygons [i][1], polygons[i][2]]
     p1 = [polygons[i+1][0], polygons [i+1][1], polygons[i+1][2]]
     p2 = [polygons[i+2][0], polygons [i+2][1], polygons[i+2][2]]
+    top = 0
+    mid = 0
+    bot = 0
+    if(p0[1] > p1[1] and p0[1] > p2[1]):
+        top = p0
+        if(p1[1] < p2[1]):
+            bot = p1;
+            mid = p2;
     pass
 
 def add_polygon( polygons, x0, y0, z0, x1, y1, z1, x2, y2, z2 ):
