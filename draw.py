@@ -25,9 +25,9 @@ def draw_polygons( matrix, screen, zbuffer, color ):
         normal = calculate_normal(matrix, point)[:]
 
         if normal[2] > 0:
-            tcolor [0] = random.random ()
-            tcolor [1] = random.random ()
-            tcolor [2] = random.random ()
+            tcolor [0] = random.random () %255
+            tcolor [1] = random.random () %255
+            tcolor [2] = random.random () %255
             print tcolor
             #scanline_convert(matrix, point, screen, zbuffer, tcolor)
         point+= 3
