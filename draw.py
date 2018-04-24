@@ -4,7 +4,7 @@ from math import *
 from gmath import *
 import random
 
-def scanline_convert(polygons, i, screen, zbuffer ):
+def scanline_convert(polygons, i, screen, zbuffer, tcolor ):
     p0 = [polygons[i][0], polygons [i][1], polygons[i][2]]
     p1 = [polygons[i+1][0], polygons [i+1][1], polygons[i+1][2]]
     p2 = [polygons[i+2][0], polygons [i+2][1], polygons[i+2][2]]
@@ -25,7 +25,6 @@ def scanline_convert(polygons, i, screen, zbuffer ):
         if(p0[1] < p2[1]):
             bot= p0
             mid = p2
-        pass
     else:
         top = p2
         bot = p1
@@ -33,8 +32,23 @@ def scanline_convert(polygons, i, screen, zbuffer ):
         if(p0[1] < p1[1]):
             bot = p0
             mid = p1
-    #asdf;
-    pass
+            
+    deltay = mid[1] - bot[1] 
+    deltax = (mid[1] - bot[1])/ deltay
+    deltaz = (mid[2] - bot[2])/ deltay
+    y0 = bot[1]
+    x0 = bot[0]
+    z0 = bot[2] 
+    while (y0 < top[1]):
+        if(y0 == mid[0]):
+            deltay = top[1] - bot[1] 
+            deltax = (top[1] - bot[1])/ deltay
+            deltaz = (top[2] - bot[2])/ deltay
+        draw_line(x0, y0, z0, x0, y0, z0,screen, zbuffer, tcolor)
+        y0 += 1
+        x0 += deltax
+        z0 += deltaz
+    return asdf;
 
 def add_polygon( polygons, x0, y0, z0, x1, y1, z1, x2, y2, z2 ):
     add_point(polygons, x0, y0, z0);
