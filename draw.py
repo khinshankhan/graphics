@@ -2,6 +2,7 @@ from display import *
 from matrix import *
 from math import *
 from gmath import *
+import random
 
 def scanline_convert(polygons, i, screen, zbuffer ):
     pass
@@ -16,33 +17,19 @@ def draw_polygons( matrix, screen, zbuffer, color ):
         print 'Need at least 3 points to draw'
         return
 
+    tcolor = [255, 255, 255] 
+    random.seed( 10 )
     point = 0
     while point < len(matrix) - 2:
 
         normal = calculate_normal(matrix, point)[:]
 
         if normal[2] > 0:
-            draw_line( int(matrix[point][0]),
-                       int(matrix[point][1]),
-                       matrix[point][2],
-                       int(matrix[point+1][0]),
-                       int(matrix[point+1][1]),
-                       matrix[point+1][2],
-                       screen, zbuffer, color)
-            draw_line( int(matrix[point+2][0]),
-                       int(matrix[point+2][1]),
-                       matrix[point+2][2],
-                       int(matrix[point+1][0]),
-                       int(matrix[point+1][1]),
-                       matrix[point+1][2],
-                       screen, zbuffer, color)
-            draw_line( int(matrix[point][0]),
-                       int(matrix[point][1]),
-                       matrix[point][2],
-                       int(matrix[point+2][0]),
-                       int(matrix[point+2][1]),
-                       matrix[point+2][2],
-                       screen, zbuffer, color)
+            tcolor [0] = random.random ()
+            tcolor [1] = random.random ()
+            tcolor [2] = random.random ()
+            print tcolor
+            #scanline_convert(matrix, point, screen, zbuffer, tcolor)
         point+= 3
 
 
