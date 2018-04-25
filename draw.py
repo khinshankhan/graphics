@@ -57,7 +57,6 @@ def scanline_convert(polygons, i, screen, zbuffer, c ):
         if(y > mid[1] and top[1]-mid[1] != 0):
             xdelta2 = (top[0]-mid[0])/(top[1]-mid[1])
             zdelta2 = (top[2]-mid[2])/(top[1]-mid[1])
-            return
         draw_line(x0, y, z0, x1, y, z1, screen, zbuffer, c)
 
 def add_polygon( polygons, x0, y0, z0, x1, y1, z1, x2, y2, z2 ):
@@ -82,7 +81,7 @@ def draw_polygons( matrix, screen, zbuffer, color ):
             tcolor [1] = random.random () %255
             tcolor [2] = random.random () %255
             print tcolor
-            #scanline_convert(matrix, point, screen, zbuffer, tcolor)
+            scanline_convert(matrix, point, screen, zbuffer, tcolor)
         point+= 3
 
 
