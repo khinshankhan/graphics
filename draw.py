@@ -4,7 +4,7 @@ from math import *
 from gmath import *
 import random
 
-def scanline_convert(polygons, i, screen, zbuffer, tcolor ):
+def scanline_convert(polygons, i, screen, zbuffer, c ):
     p0 = [polygons[i][0], polygons [i][1], polygons[i][2]]
     p1 = [polygons[i+1][0], polygons [i+1][1], polygons[i+1][2]]
     p2 = [polygons[i+2][0], polygons [i+2][1], polygons[i+2][2]]
@@ -33,22 +33,32 @@ def scanline_convert(polygons, i, screen, zbuffer, tcolor ):
             bot = p0
             mid = p1
             
-    deltay = mid[1] - bot[1] 
-    deltax = (mid[1] - bot[1])/ deltay
-    deltaz = (mid[2] - bot[2])/ deltay
-    y0 = bot[1]
+    xdelta1 =(top[0]-bot[0])/(top[1]-bot[1])
+    zdelta1 =(top[2]-bot[2])/(top[1]-bot[1])
+    
+    x1 = bot[0]
+    z1 = bot[2]
+    xdelta2 = (mid[0]-bot[0])/(mid[1]-bot[1]);
+    zdelta2 = (mid[2]-bot[2])/(mid[1]-bot[1])
+    if(middle[1]-bottom[1] == 0):
+        x1 = mid[0]
+        z1 = mid[2]
+        xdelta2 = (top[0]-mid[0])/(top[1]-mid[1])
+        zdelta2 = (top[2]-mid[2])/(top[1]-mid[1])
+    y = bot[1]
     x0 = bot[0]
-    z0 = bot[2] 
-    while (y0 < top[1]):
-        if(y0 == mid[0]):
-            deltay = top[1] - bot[1] 
-            deltax = (top[1] - bot[1])/ deltay
-            deltaz = (top[2] - bot[2])/ deltay
-        draw_line(x0, y0, z0, x0, y0, z0,screen, zbuffer, tcolor)
-        y0 += 1
-        x0 += deltax
-        z0 += deltaz
-    return asdf;
+    z0 = bot[2]
+    while(y < top[1]):
+        x0 += xdelta1;
+        z0 += zdelta1;
+        x1 += xdelta2;
+        z1 += zdelta2;
+        y+=1
+        if(y > mid[1] and top[1]-mid[1] != 0):
+            xdelta2 = (top[0]-mid[0])/(top[1]-mid[1])
+            zdelta2 = (top[2]-mid[2])/(top[1]-mid[1])
+            return
+        draw_line(x0, y, z0, x1, y, z1, screen, zbuffer, c)
 
 def add_polygon( polygons, x0, y0, z0, x1, y1, z1, x2, y2, z2 ):
     add_point(polygons, x0, y0, z0);
