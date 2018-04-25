@@ -40,7 +40,7 @@ def scanline_convert(polygons, i, screen, zbuffer, c ):
     z1 = bot[2]
     xdelta2 = (mid[0]-bot[0])/(mid[1]-bot[1]);
     zdelta2 = (mid[2]-bot[2])/(mid[1]-bot[1])
-    if(middle[1]-bottom[1] == 0):
+    if(mid[1]-bot[1] == 0):
         x1 = mid[0]
         z1 = mid[2]
         xdelta2 = (top[0]-mid[0])/(top[1]-mid[1])
