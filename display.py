@@ -29,13 +29,13 @@ def new_zbuffer( width = XRES, height = YRES ):
 
 def plot( screen, zbuffer, color, x, y, z ):
     newy = YRES - 1 - y
-    print "xyz"
-    print x
-    print y
-    print z
-    if ( x >= 0 and x < XRES and newy >= 0 and newy < YRES and zbuffer[newy][x] < z):
-        screen[newy][x] = color[:]
-        zbuffer[newy][x] = z
+    #print "xyz"
+    #print x
+    #print y
+    #print z
+    if ( x >= 0 and x < XRES and newy >= 0 and newy < YRES and zbuffer[int(newy)][int(x)] < z):
+        screen[int(newy)][int(x)] = color[:]
+        zbuffer[int(newy)][int(x)] = z
 
 def clear_screen( screen ):
     for y in range( len(screen) ):

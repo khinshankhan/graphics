@@ -4,7 +4,7 @@ from math import *
 from gmath import *
 import random
 
-def scanline_convert(polygons, i, screen, zbuffer, c ):
+def scanline_convert(polygons, i, screen, zbuffer, color ):
     p0 = [polygons[i][0], polygons [i][1], polygons[i][2]]
     p1 = [polygons[i+1][0], polygons [i+1][1], polygons[i+1][2]]
     p2 = [polygons[i+2][0], polygons [i+2][1], polygons[i+2][2]]
@@ -32,33 +32,46 @@ def scanline_convert(polygons, i, screen, zbuffer, c ):
         if(p0[1] < p1[1]):
             bot = p0
             mid = p1
-            
-    xdelta1 =(top[0]-bot[0])/(top[1]-bot[1])
-    zdelta1 =(top[2]-bot[2])/(top[1]-bot[1])
+    y0, y1, y2 = bot[1], mid[1], top[1]
+    x0, x1, x2 = bot[0], mid[0], top[0]
+    z0, z1, z2 = bot[2], mid[2], top[2]
     
-    x1 = bot[0]
-    z1 = bot[2]
-    xdelta2 = (mid[0]-bot[0])/(mid[1]-bot[1]);
-    zdelta2 = (mid[2]-bot[2])/(mid[1]-bot[1])
-    if(mid[1]-bot[1] == 0):
-        x1 = mid[0]
-        z1 = mid[2]
-        xdelta2 = (top[0]-mid[0])/(top[1]-mid[1])
-        zdelta2 = (top[2]-mid[2])/(top[1]-mid[1])
-    y = bot[1]
-    x0 = bot[0]
-    z0 = bot[2]
-    while(y < top[1]):
-        x0 += xdelta1;
-        z0 += zdelta1;
-        x1 += xdelta2;
-        z1 += zdelta2;
-        y+=1
-        if(y > mid[1] and top[1]-mid[1] != 0):
-            xdelta2 = (top[0]-mid[0])/(top[1]-mid[1])
-            zdelta2 = (top[2]-mid[2])/(top[1]-mid[1])
-        draw_line(x0, y, z0, x1, y, z1, screen, zbuffer, c)
+    y = y0 
+    xi = x0 
+    xf = x0 
+    zi = z0 
+    zf = z1 
+    delta_xi = (x2-x0)/(y2-y0)
+    delta_zi = (z2-z0)/(y2-y0)
+    draw_line(xi, y, zi, xf, y, zf, screen, zbuffer, color)
 
+    if y1 - y0 != 0: 
+        delta_xf = (x1-x0)/(y1-y0)
+        delta_zf = (z1-z0)/(y1-y0)
+
+        while y < y1: 
+            draw_line(xi, y, zi, xf, y, zf, screen, zbuffer, color)
+            xi += delta_xi
+            xf += delta_xf
+            zi += delta_zi
+            zf += delta_zf
+            y += 1
+
+    y = y1 
+    xf = x1 
+    zf = z1 
+    draw_line(xi, y, zi, xf, y, zf, screen, zbuffer, color)
+
+    if y2 - y1 != 0:
+        delta_xf = (x2-x1)/(y2-y1)
+        delta_zf = (z2-z1)/(y2-y1)
+        while y < y2: 
+            draw_line(xi, y, zi, xf, y, zf, screen, zbuffer, color)
+            xi += delta_xi
+            xf += delta_xf
+            zi += delta_zi
+            zf += delta_zf
+            y += 1
 def add_polygon( polygons, x0, y0, z0, x1, y1, z1, x2, y2, z2 ):
     add_point(polygons, x0, y0, z0);
     add_point(polygons, x1, y1, z1);
@@ -77,10 +90,10 @@ def draw_polygons( matrix, screen, zbuffer, color ):
         normal = calculate_normal(matrix, point)[:]
 
         if normal[2] > 0:
-            tcolor [0] = random.random () %255
-            tcolor [1] = random.random () %255
-            tcolor [2] = random.random () %255
-            print tcolor
+            tcolor [0] = int(random.random () * 1000) %255
+            tcolor [1] = int(random.random () * 1000) %255
+            tcolor [2] = int(random.random () * 1000) %255
+            #print tcolor
             scanline_convert(matrix, point, screen, zbuffer, tcolor)
         point+= 3
 
@@ -291,7 +304,6 @@ def draw_line( x0, y0, z0, x1, y1, z1, screen, zbuffer, color ):
         yt = y0
         x0 = x1
         y0 = y1
-        z0 = z1
         x1 = xt
         y1 = yt
 
@@ -301,8 +313,6 @@ def draw_line( x0, y0, z0, x1, y1, z1, screen, zbuffer, color ):
     B = -2 * (x1 - x0)
     wide = False
     tall = False
-    
-    dz = (z1 - z0)/(x1-x0)
 
     if ( abs(x1-x0) >= abs(y1 - y0) ): #octants 1/8
         wide = True
@@ -338,20 +348,25 @@ def draw_line( x0, y0, z0, x1, y1, z1, screen, zbuffer, color ):
             d_east = -1 * B
             loop_start = y1
             loop_end = y
+    
+    if loop_end-loop_start != 0:
+        delta_z = (z1-z0)/(loop_end-loop_start)
+    else: 
+        delta_z = 0 
+    z = z0
 
     while ( loop_start < loop_end ):
-        plot( screen, zbuffer, color, x, y, 0 )
+        plot( screen, zbuffer, color, x, y, z )
         if ( (wide and ((A > 0 and d > 0) or (A < 0 and d < 0))) or
              (tall and ((A > 0 and d < 0) or (A < 0 and d > 0 )))):
 
             x+= dx_northeast
             y+= dy_northeast
             d+= d_northeast
-            z0 += dz*dy_northeast
         else:
             x+= dx_east
             y+= dy_east
             d+= d_east
-            z0 += dz*dy_east
         loop_start+= 1
-    plot( screen, zbuffer, color, x, y, 0 )
+        z += delta_z 
+    plot( screen, zbuffer, color, x1, y1, z1 )
