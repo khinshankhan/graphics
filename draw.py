@@ -295,9 +295,33 @@ def add_edge( matrix, x0, y0, z0, x1, y1, z1 ):
 def add_point( matrix, x, y, z=0 ):
     matrix.append( [x, y, z, 1] )
 
+def draw_lines( matrix, screen, zbuffer, color ):
+    if len(matrix) < 2:
+        print 'Need at least 2 points to draw'
+        return
+
+    point = 0
+    while point < len(matrix) - 1:
+        draw_line( int(matrix[point][0]),
+                   int(matrix[point][1]),
+                   matrix[point][2],
+                   int(matrix[point+1][0]),
+                   int(matrix[point+1][1]),
+                   matrix[point+1][2],
+                   screen, zbuffer, color)
+        point+= 2
+
+def add_edge( matrix, x0, y0, z0, x1, y1, z1 ):
+    add_point(matrix, x0, y0, z0)
+    add_point(matrix, x1, y1, z1)
+
+def add_point( matrix, x, y, z=0 ):
+    matrix.append( [x, y, z, 1] )
+
 
 def draw_line( x0, y0, z0, x1, y1, z1, screen, zbuffer, color ):
 
+    x0, y0, x1, y1 = int(x0), int(y0), int(x1), int(y1)
     #swap points if going right -> left
     if x0 > x1:
         xt = x0
@@ -309,10 +333,12 @@ def draw_line( x0, y0, z0, x1, y1, z1, screen, zbuffer, color ):
 
     x = x0
     y = y0
+    z = z0
     A = 2 * (y1 - y0)
     B = -2 * (x1 - x0)
     wide = False
     tall = False
+
 
     if ( abs(x1-x0) >= abs(y1 - y0) ): #octants 1/8
         wide = True
@@ -348,14 +374,15 @@ def draw_line( x0, y0, z0, x1, y1, z1, screen, zbuffer, color ):
             d_east = -1 * B
             loop_start = y1
             loop_end = y
-    
-    if loop_end-loop_start != 0:
-        delta_z = (z1-z0)/(loop_end-loop_start)
-    else: 
-        delta_z = 0 
-    z = z0
-
-    while ( loop_start < loop_end ):
+            
+    if y1 == y0:
+        dz = 0
+    elif tall:
+        dz = (z1-z0)/(y1-y0)
+    elif wide:
+        dz = (z1-z0)/(x1-x0)
+        
+    while ( loop_start <= loop_end ):
         plot( screen, zbuffer, color, x, y, z )
         if ( (wide and ((A > 0 and d > 0) or (A < 0 and d < 0))) or
              (tall and ((A > 0 and d < 0) or (A < 0 and d > 0 )))):
@@ -368,5 +395,4 @@ def draw_line( x0, y0, z0, x1, y1, z1, screen, zbuffer, color ):
             y+= dy_east
             d+= d_east
         loop_start+= 1
-        z += delta_z 
-    plot( screen, zbuffer, color, x1, y1, z1 )
+        z += dz
