@@ -33,7 +33,7 @@ def plot( screen, zbuffer, color, x, y, z ):
     #print x
     #print y
     #print z
-    if ( x >= 0 and x < XRES and newy >= 0 and newy < YRES and zbuffer[int(newy)][int(x)] < z):
+    if ( x >= 0 and x < XRES and newy >= 0 and newy < YRES and zbuffer[int(newy)][int(x)] <= z):
         screen[int(newy)][int(x)] = color[:]
         zbuffer[int(newy)][int(x)] = z
 
