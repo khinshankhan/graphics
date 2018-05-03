@@ -10,7 +10,20 @@ SPECULAR_EXP = 4
 
 #lighting functions
 def get_lighting(normal, view, ambient, light, areflect, dreflect, sreflect ):
-    pass
+    normal = normalize(normal)
+    view = normalize(view)
+    light[0] = normalize(light[0])
+
+    a = calculate_ambient(alight, areflect)
+    d = calculate_diffuse(light, dreflect, normal)
+    s = calculate_specular(light, sreflect, view, normal)
+
+    r = a[0] + d[0] + s[0]
+    g = a[1] + d[1] + s[1]
+    b = a[2] + d[2] + s[2]
+    
+    i = [r, g, b]
+    return limit_color(i)
 
 def calculate_ambient(alight, areflect):
     return alight * areflect
@@ -23,14 +36,16 @@ def calculate_specular(light, sreflect, view, normal):
     pass
 
 def limit_color(color):
-    return int(color % 255)
+    #return 
+    return map(lambda x: 255 if x > 255 else int(x), color)
 
 #vector functions
 def normalize(vector):
-    pass
+    m = (reduce(lambda x, y: x**2 + y**2, vector))**(0.5)
+    return map(lambda x: (int((x/m) * 100))/100, vector)
 
 def dot_product(a, b):
-    pass
+    return reduce(lambda x, y: (x[0] * x[1]) + (y[0] * y[1]), [a, b])
 
 def calculate_normal(polygons, i):
 
