@@ -26,10 +26,10 @@ def get_lighting(normal, view, ambient, light, areflect, dreflect, sreflect ):
     return limit_color(i)
 
 def calculate_ambient(alight, areflect):
-    return [alight [i] * areflect [i] for i in range(0, len (alight) - 1)]
+    return [alight [i] * areflect [i] for i in range(0, len (alight))]
 
 def calculate_diffuse(light, dreflect, normal):
-    pk = [light [1] [i] * dreflect [i] for i in range(0, len (dlight) - 1)]
+    pk = [light [1] [i] * dreflect [i] for i in range(0, len (dlight))]
     dot = dot_product(normal, light[0])
     return map(lambda x: x * dot, pk)
 
@@ -37,10 +37,10 @@ def calculate_specular(light, sreflect, view, normal):
     dp = 2 * dot_product(normal, light[0])
     normal = map (lambda x: x * dp, normal)
     temp = normal [:]
-    temp = [temp [i] - light [0][i] for in range(0, len (temp) - 1)]
+    temp = [temp [i] - light [0][i] for in range(0, len (temp))]
     dp = dot_product(view, r)
     dp = dp**16 if dp > 0 else 0
-    return [light [0][i] * dp * srelflect [i] for in range(0, len (sreflect) - 1)]
+    return [light [0][i] * dp * srelflect [i] for in range(0, len (sreflect))]
 
 def limit_color(color):
     #return 
