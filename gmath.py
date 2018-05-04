@@ -26,12 +26,11 @@ def get_lighting(normal, view, ambient, light, areflect, dreflect, sreflect ):
     return limit_color(i)
 
 def calculate_ambient(alight, areflect):
-    return [alight [i] * areflect [i] for i in range(0, len (alight))]
+    return map(lambda x: x[0] * x[1], zip(alight, areflect))
 
 def calculate_diffuse(light, dreflect, normal):
-    pk = [light [1] [i] * dreflect [i] for i in range(0, len (dlight))]
     dot = dot_product(normal, light[0])
-    return map(lambda x: x * dot, pk)
+    return map(lmbda x: x[0] * x[1] * dot, zip(light[1], dreflect))
 
 def calculate_specular(light, sreflect, view, normal):
     dp = 2 * dot_product(normal, light[0])
@@ -42,8 +41,7 @@ def calculate_specular(light, sreflect, view, normal):
     dp = dp**16 if dp > 0 else 0
     return [light [0][i] * dp * srelflect [i] for in range(0, len (sreflect))]
 
-def limit_color(color):
-    #return 
+def limit_color(color): 
     maxes = map(lambda x: 255 if x > 255 else x, color)
     return map(lambda x: 0 if x < 0 else int(x), color)
 
@@ -53,11 +51,9 @@ def normalize(vector):
     return map(lambda x: (int((x/m) * 100))/100, vector)
 
 def dot_product(a, b):
+    return reduce()
     return (a[0] * b[0]) + (a[1] * b[1]) + (a[2] * b[2])
 
-a = [1, 1, 1]
-b = [2, 2, 2]
-print 
 def calculate_normal(polygons, i):
 
     A = [0, 0, 0]
