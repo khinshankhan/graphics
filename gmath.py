@@ -51,7 +51,6 @@ def normalize(vector):
     return map(lambda x: (int((x/m) * 100))/100, vector)
 
 def dot_product(a, b):
-    return reduce()
     return (a[0] * b[0]) + (a[1] * b[1]) + (a[2] * b[2])
 
 def calculate_normal(polygons, i):
