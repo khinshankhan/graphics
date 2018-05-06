@@ -23,7 +23,6 @@ def get_lighting(normal, view, alight, light, areflect, dreflect, sreflect ):
     b = a[2] + d[2] + s[2]
     
     i = [r, g, b]
-    #print limit_color(i)
     return limit_color(i)
 
 def calculate_ambient(alight, areflect):
@@ -51,16 +50,9 @@ def limit_color(color):
 def normalize(vector):
     length = math.sqrt(vector[0] ** 2 + vector[1] ** 2 + vector[2] ** 2)
     return map(lambda x: x / length, vector)
-#length = round(length, 2)
-#m = map(lambda x: x / length, vector)
-#m = map(lambda x: round(x, 2), m)
-#print m
-#return m
     
 def dot_product(a, b):
     return (a[0] * b[0]) + (a[1] * b[1]) + (a[2] * b[2])
-#dp = (a[0] * b[0]) + (a[1] * b[1]) + (a[2] * b[2])
-#return round(dp, 2)
 
 def calculate_normal(polygons, i):
 
