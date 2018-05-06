@@ -23,7 +23,7 @@ def get_lighting(normal, view, alight, light, areflect, dreflect, sreflect ):
     b = a[2] + d[2] + s[2]
     
     i = [r, g, b]
-    #print i
+    #print limit_color(i)
     return limit_color(i)
 
 def calculate_ambient(alight, areflect):
