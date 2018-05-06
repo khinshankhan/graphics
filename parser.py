@@ -64,8 +64,8 @@ def parse_file( fname, edges, polygons, transform, screen, zbuffer, view, ambien
     systems = [ t ]
 
     step = 100
-    step_3d = 40
-
+    step_3d = 100
+    
     c = 0
     while c < len(lines):
         line = lines[c].strip()
