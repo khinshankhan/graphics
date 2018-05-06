@@ -69,7 +69,7 @@ def save_extension( screen, fname ):
 def display( screen ):
     ppm_name = 'pic.ppm'
     save_ppm( screen, ppm_name )
-    p = Popen( ['display', ppm_name], stdin=PIPE, stdout = PIPE )
+    p = Popen( ['imdisplay.exe', ppm_name], stdin=PIPE, stdout = PIPE )
     p.communicate()
     remove(ppm_name)
 

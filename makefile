@@ -1,7 +1,8 @@
 
-run: main.py display.py draw.py matrix.py parser.py gmath.py
+run: main.py display.py draw.py matrix.py parsr.py gmath.py
 	python main.py
 
 clean:
-	rm *.pyc
-	rm *~
+	rm *.pyc -f
+	rm *~ -f
+	clear

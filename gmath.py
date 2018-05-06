@@ -9,10 +9,10 @@ COLOR = 1
 SPECULAR_EXP = 4
 
 #lighting functions
-def get_lighting(normal, view, ambient, light, areflect, dreflect, sreflect ):
+def get_lighting(normal, view, alight, light, areflect, dreflect, sreflect ):
     normal = normalize(normal)
     view = normalize(view)
-    light[0] = normalize(light[0])
+    light[LOCATION] = normalize(light[LOCATION])
 
     a = calculate_ambient(alight, areflect)
     d = calculate_diffuse(light, dreflect, normal)
@@ -23,23 +23,25 @@ def get_lighting(normal, view, ambient, light, areflect, dreflect, sreflect ):
     b = a[2] + d[2] + s[2]
     
     i = [r, g, b]
+    #print i
     return limit_color(i)
 
 def calculate_ambient(alight, areflect):
     return map(lambda x: x[0] * x[1], zip(alight, areflect))
-
+    
 def calculate_diffuse(light, dreflect, normal):
-    dot = dot_product(normal, light[0])
-    return map(lmbda x: x[0] * x[1] * dot, zip(light[1], dreflect))
-
+    dp = dot_product(normal, light[LOCATION])
+    return map(lambda x: x[0] * x[1] * dp, zip(light[COLOR], dreflect))
+  
 def calculate_specular(light, sreflect, view, normal):
-    dp = 2 * dot_product(normal, light[0])
-    normal = map (lambda x: x * dp, normal)
-    temp = normal [:]
-    temp = [temp [i] - light [0][i] for in range(0, len (temp))]
+    s = [0, 0, 0]
+    m = 2 * dot_product(normal, light[LOCATION])
+    normal = map(lambda x: x * m, normal)
+    r = normal[:]
+    r= map(lambda x: x[0] - x[1], zip(r, light[LOCATION]))
     dp = dot_product(view, r)
-    dp = dp**16 if dp > 0 else 0
-    return [light [0][i] * dp * srelflect [i] for in range(0, len (sreflect))]
+    dp = (dp ** SPECULAR_EXP) if dp > 0 else 0
+    return map(lambda x: x[0] * x[1] * dp, zip(light[COLOR], sreflect))
 
 def limit_color(color): 
     maxes = map(lambda x: 255 if x > 255 else x, color)
@@ -47,9 +49,9 @@ def limit_color(color):
 
 #vector functions
 def normalize(vector):
-    m = (reduce(lambda x, y: x**2 + y**2, vector))**(0.5)
-    return map(lambda x: (int((x/m) * 100))/100, vector)
-
+    length = math.sqrt(vector[0] ** 2 + vector[1] ** 2 + vector[2] ** 2)
+    return map(lambda x: x / length, vector)
+    
 def dot_product(a, b):
     return (a[0] * b[0]) + (a[1] * b[1]) + (a[2] * b[2])
 
