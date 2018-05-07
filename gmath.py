@@ -44,7 +44,7 @@ def calculate_specular(light, sreflect, view, normal):
 
 def limit_color(color): 
     maxes = map(lambda x: 255 if x > 255 else x, color)
-    return map(lambda x: 0 if x < 0 else int(x), color)
+    return map(lambda x: 0 if x < 0 else int(x), maxes)
 
 #vector functions
 def normalize(vector):
