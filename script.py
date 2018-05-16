@@ -40,7 +40,7 @@ def run(filename):
     step_3d = 20
 
     p = mdl.parseFile(filename)
-
+    
     if p:
         #print p
         (commands, symbols) = p
