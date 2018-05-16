@@ -56,7 +56,11 @@ def run(filename):
             args = []
             for j in range(1, len(commands[i])):
                 args.append(commands[i][j])
-            print (command, args)
+            #print (command, args)
+            execute(command, args)
     else:
         print "Parsing failed."
         return
+
+def execute(command, args):
+    pass

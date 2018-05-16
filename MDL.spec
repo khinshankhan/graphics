@@ -21,7 +21,7 @@ push	- makes a new top level of stack and COPIES the previous top
 	  to the new top level. REMEMBER, THIS MUST BE A COPY, NOT
 	  A POINTER TO THE OLD TOP
 
-pop	- pops off the top of the stack (doesn't return anything)
+pop	- pops off the top of the stack (doesn\'t return anything)
 
 
 Transformations
@@ -173,7 +173,7 @@ This command takes the parser description in mdl.y and builds the
 parser.  It creates two files, y.tab.c and y.tab.h. These contain a
 number of things including #defines, a routine called yyparse() which
 does the actual parse, and in our case, main(). The option "-y" tells
-bison to use yacc's naming convensions (bison is gnus implementation
+bison to use yacc\'s naming convensions (bison is gnus implementation
 of yacc and it has a number of extensions) specifically that the
 output files are called y.tab.h and y.tab.c. The "-d" option tells
 bison to create y.tab.h (in addition to y.tab.c) which contains the
