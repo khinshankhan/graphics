@@ -42,7 +42,21 @@ def run(filename):
     p = mdl.parseFile(filename)
 
     if p:
+        #print p
         (commands, symbols) = p
+        print '###################'
+        print commands
+        #print len(commands)
+        #print len(commands[1])
+        print '###################'
+        #print symbols
+                
+        for i in range(0, len(commands)):
+            command = commands[i][0]
+            args = []
+            for j in range(1, len(commands[i])):
+                args.append(commands[i][j])
+            print (command, args)
     else:
         print "Parsing failed."
         return
