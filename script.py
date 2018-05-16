@@ -42,11 +42,21 @@ def run(filename):
     #executes the mdl commands
     def execute(line, args):
         #tests for each commmand, this is temp
-        if line == 'save': 
-            print ("HEYA: ", str(args[0]) + str(args[1]))
+        if line == 'sphere': 
+            print ("HEYA: ", tmp,
+                       float(args[0]), float(args[1]), float(args[2]),
+                       float(args[3]), step_3d)
 
         #loop!    
-        if line == 'display' or line == 'save':
+        if line == 'sphere':
+            #print ('SPHERE\t', args)
+            add_sphere(tmp,
+                       float(args[0]), float(args[1]), float(args[2]),
+                       float(args[3]), step_3d)
+            matrix_mult( systems[-1], tmp )
+            draw_polygons(tmp, screen, zbuffer, view, ambient, light, areflect, dreflect, sreflect)
+            tmp = []
+        elif line == 'display' or line == 'save':
             if line == 'display':
                 display(screen)
             else:
