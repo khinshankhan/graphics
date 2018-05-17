@@ -34,16 +34,17 @@ def run():
     sys.stdout.flush()
     choice = raw_input()
     if (choice == "windows" or choice == "revert"):
+        '''
         if (choice == "windows"):
             os.rename("parser.py", "parsr.py")
             replace_file("parsr.py", choice)
         elif (choice == "revert"):
             os.rename("parsr.py", "parser.py")
             replace_file("parser.py", choice)
-            
-        replace_file("makefile", choice)
+        ''' 
+        #replace_file("makefile", choice)
         replace_file("display.py", choice)
-        replace_file("main.py", choice)
+        #replace_file("main.py", choice)
     else:
         print
         print 'Invalid choice'
