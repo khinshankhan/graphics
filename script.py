@@ -3,6 +3,8 @@ from display import *
 from matrix import *
 from draw import *
 
+import sys
+
 """======== first_pass( commands, symbols ) ==========
 
   Checks the commands array for any animation commands
@@ -19,7 +21,18 @@ from draw import *
   with the name being used.
   ==================== """
 def first_pass( commands ):
-    pass
+    basename = "asdf"
+    frame = None
+    vary = None
+
+    for c in commands:
+        if(vary and not frame):
+            sys.exit("ERROR: vary found without any frame")
+        
+
+        if(frame):
+            print "WARNING: basename not found, using 'asdf' as basename"
+    return(basename)
 
 """======== second_pass( commands ) ==========
 
