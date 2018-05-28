@@ -114,6 +114,17 @@ def second_pass( commands, num_frames ):
     return node_vary
 
 
+#progress bar by Rom Ruben! with a few mods
+def progress(count, total, fill='#', suffix=''):
+    bar_len = 60
+    filled_len = int(round(bar_len * count / float(total)))
+
+    percents = round(100.0 * count / float(total), 1)
+    bar = fill * filled_len + '-' * (bar_len - filled_len)
+
+    sys.stdout.write('[%s] %s%s ...%s\r' % (bar, percents, '%', suffix))
+    sys.stdout.flush()
+
 def run(filename):
     """
     This function runs an mdl script
@@ -170,8 +181,11 @@ def run(filename):
     #print node_vary
 
     for frame in range(int(num_frames)):
-        print ("Frame #:", frame)
-
+        #sys.stdout.flush()
+        #print ("Frame:", frame)
+        #sys.stdout.flush()
+        progress(frame, num_frames)
+        
         for knob in node_vary[frame]:
             symbols[knob][1] = node_vary[frame][knob]
 
@@ -269,5 +283,9 @@ def run(filename):
         tmp = []
         step_3d = 20
 
+    progress(num_frames, num_frames)
+    sys.stdout.flush()
+    print
+    print
     if num_frames > 1:
         make_animation(basename)
