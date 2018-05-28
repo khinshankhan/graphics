@@ -71,15 +71,8 @@ def first_pass( commands ):
   dictionary corresponding to the given knob with the
   appropirate value.
   ===================="""
-
-#helper method for dictionary
-def removekey(d, key):
-    r = dict(d)
-    del r[key]
-    return r
-
 def second_pass( commands, num_frames ):
-    print "\nSTART FIRST"
+    #print "\nSTART SECOND"
     node_vary = dict([(i, None) for i in range(int(num_frames))])    
 
     for command in commands:
@@ -108,7 +101,7 @@ def second_pass( commands, num_frames ):
                     node_vary[frame].update(val)
                 frame += 1
     #print node_vary
-    print "END SECOND\n"
+    #print "END SECOND\n"
     return node_vary
 
 
