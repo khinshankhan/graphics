@@ -1,4 +1,6 @@
 frames 50
+basename peek_a_boo_with_no_hands
+
 //BODY
 push
 rotate y 360 spinny
