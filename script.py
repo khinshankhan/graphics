@@ -71,12 +71,45 @@ def first_pass( commands ):
   dictionary corresponding to the given knob with the
   appropirate value.
   ===================="""
+
+#helper method for dictionary
+def removekey(d, key):
+    r = dict(d)
+    del r[key]
+    return r
+
 def second_pass( commands, num_frames ):
     print "\nSTART FIRST"
-    print num_frames
+    node_vary = dict([(i, None) for i in range(int(num_frames))])    
+
+    for command in commands:
+        c = command['op']
+        args = command['args']
+            
+        if(c == 'vary'):
+            knob = command['knob']
+            #print args
+            start_frame = args[0]
+            end_frame = args[1]
+            start_val = args[2]
+            end_val = args[3]
+
+            d = (end_val - start_val) / (end_frame - start_frame)
+            d = round (d, 2)
+
+            frame = int(start_frame)
+            while (frame < end_frame):
+                values = round(start_val + (frame - start_frame) * d, 2)
+                #if(node_vary[0] is None):
+                val = {knob:values}
+                if(node_vary[frame] is None):
+                    node_vary[frame] = val
+                else:
+                    node_vary[frame].update(val)
+                frame += 1
+    #print node_vary
     print "END SECOND\n"
-    
-    return
+    return node_vary
 
 
 def run(filename):
@@ -130,8 +163,9 @@ def run(filename):
     (basename, num_frames) = first_pass(commands)
     #print basename
     #print num_frames
-    second_pass( commands, num_frames )
-
+    
+    node_vary = second_pass( commands, num_frames )
+    #print node_vary
     
     for command in commands:
         print command
