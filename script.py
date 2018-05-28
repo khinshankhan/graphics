@@ -26,18 +26,8 @@ def first_pass( commands ):
     vary = None
     num_frames = None
 
-    for c in commands:
-        if(vary and not frame):
-            print "ERROR: vary found without any frame"
-            sys.exit("Exiting program")
-        
-        if(frame):
-            print "WARNING: basename not found, using 'asdf' as basename"
-            print "WARNING: if other files with the this name exist, you done goofed"
-            print "CHOOSE: 'y' to consent and continue, or any other key to exit and save yourself"
-            choice = raw_input()
-            if not (choice == "y"):
-                sys.exit("Exiting program")
+    for command in commands:
+        print command
     return(basename, frame, vary, num_frame)
 
 """======== second_pass( commands ) ==========
