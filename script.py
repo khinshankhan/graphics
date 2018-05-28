@@ -21,14 +21,38 @@ import sys
   with the name being used.
   ==================== """
 def first_pass( commands ):
-    basename = "asdf"
-    frame = None
-    vary = None
+    #print "\nSTART FIRST"
+    basename = None
     num_frames = None
-
     for command in commands:
-        print command
-    return(basename, frame, vary, num_frame)
+        #print command
+        c = command['op']
+        args = command['args']
+        #print c
+        #print args
+        if c == 'frames':
+            num_frames = args[0]
+        if (c == 'basename'):
+            basename = args[0]
+
+        if c == 'vary':
+            if (not num_frames):
+                print "ERROR: vary found without any frame"
+                sys.exit("Exiting program")
+    
+    if (not (num_frames == None) and (basename == None)):
+        basename = 'asdf'
+        sys.stdout.flush()
+        print "WARNING: basename not found, using 'asdf' as basename"
+        print "WARNING: if other files with the this name exist, you done goofed"
+        print "CHOOSE: 'y' to consent and continue, or any other key to exit and save yourself"
+        sys.stdout.flush()
+        choice = raw_input()
+        sys.stdout.flush()
+        if not (choice == "y"):
+            sys.exit("Exiting program")
+    #print "END FIRST\n"
+    return (basename, num_frames)
 
 """======== second_pass( commands ) ==========
 
@@ -48,7 +72,10 @@ def first_pass( commands ):
   appropirate value.
   ===================="""
 def second_pass( commands, num_frames ):
-    pass
+    print "\nSTART FIRST"
+    print num_frames
+    print "END SECOND\n"
+    return
 
 
 def run(filename):
@@ -98,6 +125,13 @@ def run(filename):
         print "Parsing failed."
         return
 
+    #PASSES
+    (basename, num_frames) = first_pass(commands)
+    #print basename
+    #print num_frames
+    second_pass( commands, num_frames )
+
+    
     for command in commands:
         print command
         c = command['op']

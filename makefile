@@ -6,3 +6,4 @@ clean:
 
 clear:
 	rm *pyc *out parsetab.py *ppm -f
+	clear
