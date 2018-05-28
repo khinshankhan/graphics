@@ -64,18 +64,18 @@ def save_extension( screen, fname ):
     save_ppm( screen, ppm_name )
     command ='convert.exe ' + ppm_name + ' ' + fname
     os.system(command)
-    remove(ppm_name)
+    os.remove(ppm_name)
 
 def display( screen ):
     ppm_name = 'pic.ppm'
     save_ppm( screen, ppm_name )
     p = Popen( ['imdisplay.exe', ppm_name], stdin=PIPE, stdout = PIPE )
     p.communicate()
-    remove(ppm_name)
+    os.remove(ppm_name)
 
 def make_animation( name ):
     name_arg = 'anim/' + name + '*'
     name = name + '.gif'
     print 'Saving animation as ' + name
     command ='convert.exe -delay 3 ' + name_arg + ' ' + name
-    os.system(new)
+    os.system(command)
