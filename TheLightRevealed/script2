@@ -1,0 +1,30 @@
+push
+move
+150 375 0
+rotate
+x 20
+rotate
+y 70
+sphere
+0 0 0 80
+pop
+push
+move
+350 375 0
+rotate
+x 20
+rotate
+y 70
+sphere
+0 0 0 80
+pop
+push
+move
+250 150 0
+rotate
+x 25
+rotate
+z 5
+torus
+0 0 0 40 125
+display
