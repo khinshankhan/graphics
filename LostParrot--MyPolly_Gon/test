@@ -1,0 +1,39 @@
+@box
+box
+250 250 0 50 50 200
+ident
+rotate
+x 20
+rotate
+y 20
+move
+150 100 0
+apply
+save
+box.ppm
+ident
+clear
+
+@sphere
+sphere
+250 250 0 100
+ident
+rotate
+z 20
+apply
+save
+sphere.ppm
+ident
+clear
+
+@torus
+torus
+250 250 0 35 100
+ident
+rotate
+x 30
+rotate
+y 20
+apply
+save
+torus.ppm
