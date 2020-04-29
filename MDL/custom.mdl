@@ -1,0 +1,45 @@
+// initial set up
+push
+move 250 250 0
+
+// Box
+push
+move 0 -125 0
+rotate x 90
+rotate y 20
+rotate z 5
+box 0 0 0 50 100 100
+pop
+
+// sphere
+push
+move 199 -100 0
+rotate y 90
+sphere 0 0 0 50
+pop
+
+// rope1
+push
+move 35 -50 0
+rotate x 90
+rotate y 20
+box 0 0 0 129 10 10
+pop
+
+// rope2
+push
+move 169 -60 0
+rotate x 90
+rotate y 20
+box 0 0 0 10 10 65
+pop
+
+
+// slope
+push
+move -350 -250 -50
+rotate z 20
+box 0 0 0 500 1000 1000
+pop
+
+display
